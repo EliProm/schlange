@@ -1,4 +1,5 @@
 input.onButtonPressed(Button.A, function () {
+    music.playTone(523, music.beat(BeatFraction.Sixteenth))
     Richt = Richt - 1
     if (Richt < 0) {
         Richt += 4
@@ -35,6 +36,7 @@ function fDy (Richtung: number) {
     return Erg
 }
 input.onButtonPressed(Button.B, function () {
+    music.playTone(587, music.beat(BeatFraction.Sixteenth))
     Richt = Richt + 1
     if (Richt > 3) {
         Richt += -4
@@ -83,7 +85,7 @@ basic.forever(function () {
         ylist.unshift(Posy)
         if (led.point(Posx, Posy)) {
             kollision = 1
-            music.playTone(262, music.beat(BeatFraction.Whole))
+            music.playTone(131, music.beat(BeatFraction.Double))
         }
         led.plot(Posx, Posy)
         music.playTone(262, music.beat(BeatFraction.Sixteenth))
@@ -94,7 +96,6 @@ basic.forever(function () {
     }
     if (kollision == 1) {
         basic.showIcon(IconNames.No)
-        music.startMelody(music.builtInMelody(Melodies.Funeral), MelodyOptions.ForeverInBackground)
         basic.pause(100)
         basic.showNumber(time)
         basic.pause(1000)
