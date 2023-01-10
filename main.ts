@@ -50,8 +50,8 @@ function xyneu (xyalt: number, Dxy: number) {
     }
     return Erg
 }
-let Erg: number = []
-let Richt: number = []
+let Erg = 0
+let Richt = 0
 let Posx = 2
 let Posy = 2
 let xlist = [Posx]
@@ -60,8 +60,8 @@ Richt = 0
 let len = 3
 while (true) {
     Posx = xyneu(Posx, fDx(Richt))
-    xlist.unshift(Posx)
     Posy = xyneu(Posy, fDy(Richt))
+    xlist.unshift(Posx)
     ylist.unshift(Posy)
     led.plot(Posx, Posy)
     basic.pause(100)
