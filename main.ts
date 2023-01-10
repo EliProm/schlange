@@ -58,21 +58,42 @@ let xlist = [Posx]
 let ylist = [Posy]
 Richt = 0
 let len = 3
-while (true) {
-    Posx = xyneu(Posx, fDx(Richt))
-    Posy = xyneu(Posy, fDy(Richt))
-    xlist.unshift(Posx)
-    ylist.unshift(Posy)
-    led.plot(Posx, Posy)
-    basic.pause(100)
-    if (xlist.length > len) {
-        led.unplot(xlist.pop(), ylist.pop())
-    }
-    basic.pause(500)
-}
+let kollision = 0
+let speed = 500
+let time = 0
 loops.everyInterval(1000, function () {
-    len += 1
+    if (kollision == 0) {
+        time += 1
+    }
 })
-loops.everyInterval(100, function () {
-    led.toggle(Posx, Posy)
+loops.everyInterval(2000, function () {
+    if (kollision == 0) {
+        len += 1
+    }
+})
+loops.everyInterval(2000, function () {
+    speed = speed * 0.95
+})
+basic.forever(function () {
+    while (kollision == 0) {
+        led.plotBrightness(Posx, Posy, 126)
+        Posx = xyneu(Posx, fDx(Richt))
+        Posy = xyneu(Posy, fDy(Richt))
+        xlist.unshift(Posx)
+        ylist.unshift(Posy)
+        if (led.point(Posx, Posy)) {
+            kollision = 1
+        }
+        led.plot(Posx, Posy)
+        if (xlist.length > len) {
+            led.unplot(xlist.pop(), ylist.pop())
+        }
+        basic.pause(speed)
+    }
+    if (kollision == 1) {
+        basic.showIcon(IconNames.No)
+        basic.pause(100)
+        basic.showNumber(time)
+        basic.pause(1000)
+    }
 })
