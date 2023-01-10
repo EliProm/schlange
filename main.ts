@@ -83,8 +83,10 @@ basic.forever(function () {
         ylist.unshift(Posy)
         if (led.point(Posx, Posy)) {
             kollision = 1
+            music.playTone(262, music.beat(BeatFraction.Whole))
         }
         led.plot(Posx, Posy)
+        music.playTone(262, music.beat(BeatFraction.Sixteenth))
         if (xlist.length > len) {
             led.unplot(xlist.pop(), ylist.pop())
         }
@@ -92,6 +94,7 @@ basic.forever(function () {
     }
     if (kollision == 1) {
         basic.showIcon(IconNames.No)
+        music.startMelody(music.builtInMelody(Melodies.Funeral), MelodyOptions.ForeverInBackground)
         basic.pause(100)
         basic.showNumber(time)
         basic.pause(1000)
