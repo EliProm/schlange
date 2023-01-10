@@ -1,0 +1,69 @@
+input.onButtonPressed(Button.A, function () {
+    Richt = Richt - 1
+    if (Richt < 0) {
+        Richt += 4
+    }
+})
+function fDx (Richtung: number) {
+    if (Richtung == 0) {
+        Erg = 0
+    }
+    if (Richtung == 1) {
+        Erg = 1
+    }
+    if (Richtung == 2) {
+        Erg = 0
+    }
+    if (Richtung == 3) {
+        Erg = -1
+    }
+    return Erg
+}
+function fDy (Richtung: number) {
+    if (Richtung == 0) {
+        Erg = -1
+    }
+    if (Richtung == 1) {
+        Erg = 0
+    }
+    if (Richtung == 2) {
+        Erg = 1
+    }
+    if (Richtung == 3) {
+        Erg = 0
+    }
+    return Erg
+}
+input.onButtonPressed(Button.B, function () {
+    Richt = Richt + 1
+    if (Richt > 3) {
+        Richt += -4
+    }
+})
+function xyneu (xyalt: number, Dxy: number) {
+    Erg = xyalt + Dxy
+    while (Erg < 0) {
+        Erg += 5
+    }
+    while (Erg > 4) {
+        Erg += -5
+    }
+    return Erg
+}
+let Erg = 0
+let Posyalt = 0
+let Posxalt = 0
+let Richt = 0
+let Posx = 2
+let Posy = 2
+Richt = 0
+while (true) {
+    Posxalt = Posx
+    Posyalt = Posy
+    Posx = xyneu(Posx, fDx(Richt))
+    Posy = xyneu(Posy, fDy(Richt))
+    led.plot(Posx, Posy)
+    basic.pause(100)
+    led.unplot(Posxalt, Posyalt)
+    basic.pause(500)
+}
