@@ -74,11 +74,11 @@ loops.everyInterval(2000, function () {
     }
 })
 loops.everyInterval(2000, function () {
-    speed = speed * 0.95
+    speed = speed * 0.92
 })
 basic.forever(function () {
     while (kollision == 0) {
-        led.plotBrightness(Posx, Posy, 126)
+        led.plotBrightness(Posx, Posy, 82)
         Posx = xyneu(Posx, fDx(Richt))
         Posy = xyneu(Posy, fDy(Richt))
         xlist.unshift(Posx)
