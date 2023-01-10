@@ -50,20 +50,23 @@ function xyneu (xyalt: number, Dxy: number) {
     }
     return Erg
 }
-let Erg = 0
-let Posyalt = 0
-let Posxalt = 0
-let Richt = 0
+let Erg: number = []
+let Richt: number = []
 let Posx = 2
 let Posy = 2
+let xlist = [Posx]
+let ylist = [Posy]
 Richt = 0
+let len = 3
 while (true) {
-    Posxalt = Posx
-    Posyalt = Posy
     Posx = xyneu(Posx, fDx(Richt))
+    xlist.unshift(Posx)
     Posy = xyneu(Posy, fDy(Richt))
+    ylist.unshift(Posy)
     led.plot(Posx, Posy)
     basic.pause(100)
-    led.unplot(Posxalt, Posyalt)
+    if (xlist.length > len) {
+        led.unplot(xlist.pop(), ylist.pop())
+    }
     basic.pause(500)
 }
