@@ -70,3 +70,9 @@ while (true) {
     }
     basic.pause(500)
 }
+loops.everyInterval(1000, function () {
+    len += 1
+})
+loops.everyInterval(100, function () {
+    led.toggle(Posx, Posy)
+})
