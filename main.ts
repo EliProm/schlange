@@ -79,14 +79,16 @@ let time = 0
 let punkte = 0
 setzeApfel()
 led.plot(Posx, Posy)
-basic.pause(speed)
+basic.pause(500)
 loops.everyInterval(1000, function () {
     if (kollision == 0) {
         time += 1
     }
 })
 loops.everyInterval(10000, function () {
-    speed = speed * 0.93
+    if (kollision == 0) {
+        speed = speed * 0.93
+    }
 })
 loops.everyInterval(50, function () {
     if (kollision == 0) {
@@ -114,17 +116,15 @@ loops.everyInterval(speed, function () {
             music.playTone(523, music.beat(BeatFraction.Sixteenth))
             music.playTone(784, music.beat(BeatFraction.Sixteenth))
             setzeApfel()
+        } else if (led.point(Posx, Posy)) {
+            kollision = 1
+            music.playTone(131, music.beat(BeatFraction.Double))
         } else {
-            if (led.point(Posx, Posy)) {
-                kollision = 1
-                music.playTone(131, music.beat(BeatFraction.Double))
-                break;
+            led.plot(Posx, Posy)
+            music.playTone(262, music.beat(BeatFraction.Sixteenth))
+            if (xlist.length > len) {
+                led.unplot(xlist.pop(), ylist.pop())
             }
-        }
-        led.plot(Posx, Posy)
-        music.playTone(262, music.beat(BeatFraction.Sixteenth))
-        if (xlist.length > len) {
-            led.unplot(xlist.pop(), ylist.pop())
         }
     }
 })
