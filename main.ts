@@ -1,3 +1,11 @@
+input.onLogoEvent(TouchButtonEvent.Pressed, function () {
+    if (vol != 0) {
+        vol = 0
+    } else {
+        vol = 1
+    }
+    music.setBuiltInSpeakerEnabled(vol != 0)
+})
 function setzeApfel () {
     while (true) {
         apfelx = randint(0, 4)
@@ -64,6 +72,7 @@ function xyneu (xyalt: number, Dxy: number) {
 let Erg = 0
 let apfely = 0
 let apfelx = 0
+let vol = 0
 let Richt = 0
 let Posy = 0
 let Posx = 0
@@ -78,16 +87,12 @@ let speed = 500
 let time = 0
 let punkte = 0
 setzeApfel()
+vol = 1
 led.plot(Posx, Posy)
 basic.pause(500)
 loops.everyInterval(1000, function () {
     if (kollision == 0) {
         time += 1
-    }
-})
-loops.everyInterval(10000, function () {
-    if (kollision == 0) {
-        speed = speed * 0.93
     }
 })
 loops.everyInterval(50, function () {
@@ -126,5 +131,10 @@ loops.everyInterval(speed, function () {
                 led.unplot(xlist.pop(), ylist.pop())
             }
         }
+    }
+})
+loops.everyInterval(5000, function () {
+    if (kollision == 0) {
+        speed = speed * 0.93
     }
 })
