@@ -1,8 +1,8 @@
 function setzeApfel () {
     while (true) {
-        apfelx = randint(0, 5)
-        apfely = randint(0, 5)
-        if (!(led.point(apfelx, apfely))) {
+        apfelx = randint(0, 4)
+        apfely = randint(0, 4)
+        if (!(apfelx == Posx && apfely == Posy)) {
             break;
         }
     }
@@ -65,8 +65,10 @@ let Erg = 0
 let apfely = 0
 let apfelx = 0
 let Richt = 0
-let Posx = 2
-let Posy = 2
+let Posy = 0
+let Posx = 0
+Posx = 2
+Posy = 2
 let xlist = [Posx]
 let ylist = [Posy]
 Richt = 0
@@ -76,13 +78,15 @@ let speed = 500
 let time = 0
 let punkte = 0
 setzeApfel()
+led.plot(Posx, Posy)
+basic.pause(speed)
 loops.everyInterval(1000, function () {
     if (kollision == 0) {
         time += 1
     }
 })
 loops.everyInterval(10000, function () {
-    speed = speed * 0.9
+    speed = speed * 0.93
 })
 loops.everyInterval(50, function () {
     if (kollision == 0) {
@@ -90,7 +94,15 @@ loops.everyInterval(50, function () {
     }
 })
 basic.forever(function () {
-    while (kollision == 0) {
+    if (kollision == 1) {
+        basic.showIcon(IconNames.No)
+        basic.pause(100)
+        basic.showNumber(punkte)
+        basic.pause(1000)
+    }
+})
+loops.everyInterval(speed, function () {
+    if (kollision == 0) {
         led.plotBrightness(Posx, Posy, 82)
         Posx = xyneu(Posx, fDx(Richt))
         Posy = xyneu(Posy, fDy(Richt))
@@ -114,12 +126,5 @@ basic.forever(function () {
         if (xlist.length > len) {
             led.unplot(xlist.pop(), ylist.pop())
         }
-        basic.pause(speed)
-    }
-    if (kollision == 1) {
-        basic.showIcon(IconNames.No)
-        basic.pause(100)
-        basic.showNumber(punkte)
-        basic.pause(1000)
     }
 })
